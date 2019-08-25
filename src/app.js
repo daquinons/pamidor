@@ -30,8 +30,6 @@ const app = () => {
     rightButton.addEventListener('click', e => {
       if (!timerStarted) {
         intervalObject = startTimer(
-          timerDuration - 1,
-          timerElement,
           workPeriod
         );
         timerStarted = true;
@@ -44,7 +42,7 @@ const app = () => {
     });
   }
 
-  function startTimer(workPeriod) {
+  function startTimer(isWorkPeriod) {
     let timer = timerDuration - 1;
     let interval = setInterval(function() {
       if (!timerPaused) {
@@ -55,6 +53,11 @@ const app = () => {
 
         if (timer < 0) {
           clearInterval(interval);
+          workPeriod = !isWorkPeriod;
+          timerStarted = false;
+          timerPaused = false;
+          timerDuration = setTimerDuration();
+          rightButton.click();
         }
       }
     }, 1000);
