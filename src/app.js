@@ -1,4 +1,5 @@
 const app = () => {
+  // App State
   let workPeriod = true;
   let timerStarted = false;
   let timerPaused = false;
