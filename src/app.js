@@ -1,12 +1,12 @@
 const app = () => {
-  const workPeriod = true;
+  let workPeriod = true;
   let timerStarted = false;
   let timerPaused = false;
 
-  let timerDuration = workPeriod ? 1500 : 300;
   let intervalObject;
-  const timerElement = document.getElementById('timer');
-  timerElement.textContent = getTimerTextForTime(timerDuration);
+  let timerElement = document.getElementById('timer');
+  let timerDuration = setTimerDuration();
+
 
   const leftButton = document.getElementById('button-left');
   const rightButton = document.getElementById('button-right');
@@ -17,9 +17,15 @@ const app = () => {
       if (timerStarted) {
         clearInterval(intervalObject);
         workPeriod = true;
+        timerStarted = false;
+        timerPaused = false;
+        timerDuration = setTimerDuration();
+        setGreenElementHeight(timerDuration, timerDuration, workPeriod);
       }
 
+      updateUI();
     });
+
     rightButton.addEventListener('click', e => {
       if (!timerStarted) {
         intervalObject = startTimer(
@@ -57,7 +63,7 @@ const app = () => {
 
   function updateUI() {
     if (!timerStarted) {
-      leftButton.style.visibility = 'hidden'
+      leftButton.style.visibility = 'hidden';
       rightButton.src = './assets/images/play.svg';
     } else if (timerStarted && !timerPaused) {
       leftButton.style.visibility = 'visible';
@@ -66,7 +72,12 @@ const app = () => {
     } else if (timerStarted && timerPaused) {
       rightButton.src = './assets/images/play.svg';
     }
+  }
 
+  function setTimerDuration() {
+    const duration = workPeriod ? 1500 : 300;
+    timerElement.textContent = getTimerTextForTime(duration);
+    return duration;
   }
 };
 
