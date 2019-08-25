@@ -1,8 +1,13 @@
+const app = require('electron').remote.app;
+const nativeImage = require('electron').remote.nativeImage;
+const path = require('path');
+
 const main = () => {
   // App State
   let workPeriod = true;
   let timerStarted = false;
   let timerPaused = false;
+  let completedTimer = 0;
 
   let intervalObject;
   let timerElement = document.getElementById('timer');
@@ -45,12 +50,15 @@ const main = () => {
     let interval = setInterval(function() {
       if (!timerPaused) {
         setGreenElementHeight(timerDuration, timer, workPeriod);
-        timerElement.textContent = getTimerTextForTime(timer);
+        const timerText = getTimerTextForTime(timer);
+        timerElement.textContent = timerText;
+        updateTray(isWorkPeriod, timerText);
 
         --timer;
 
         if (timer < 0) {
           clearInterval(interval);
+          completedTimer++;
           workPeriod = !isWorkPeriod;
           timerStarted = false;
           timerPaused = false;
@@ -77,7 +85,10 @@ const main = () => {
   }
 
   function setTimerDuration() {
-    const duration = workPeriod ? 1500 : 300;
+    let duration = workPeriod ? 1500 : 300;
+    if (!workPeriod && completedTimer % 7 === 0) {
+      duration *= 3;
+    }
     timerElement.textContent = getTimerTextForTime(duration);
     return duration;
   }
@@ -111,6 +122,14 @@ function sendNotification(isWorkPeriod) {
     body: body,
     icon: icon
   });
+}
+
+function updateTray(isWorkPeriod, text) {
+  const imagePath = isWorkPeriod
+    ? path.join(__dirname, '..', 'assets/images/tray_red.png')
+    : path.join(__dirname, '..', 'assets/images/tray_green.png');
+  app.tray.setImage(nativeImage.createFromPath(imagePath));
+  app.tray.setToolTip(text);
 }
 
 module.exports = main;

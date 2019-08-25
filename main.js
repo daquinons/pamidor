@@ -47,7 +47,7 @@ function createWindow() {
     return false;
   });
 
-  app.tray = new Tray(path.join(__dirname, 'assets/images/tray.png'));
+  app.tray = new Tray(path.join(__dirname, 'assets/images/tray_red.png'));
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show App',
