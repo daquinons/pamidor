@@ -11,7 +11,7 @@ const windowHeight= 375;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    icon: './assets/images/icon_256.png',
+    icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
     alwaysOnTop: true,
     backgroundColor: '#EB5757',
     titleBarStyle: 'hidden',
@@ -47,7 +47,7 @@ function createWindow() {
     return false;
   });
 
-  appIcon = new Tray('./assets/images/tray.png');
+  appIcon = new Tray(path.join(__dirname, 'assets/images/tray.png'));
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show App',

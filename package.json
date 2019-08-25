@@ -1,11 +1,13 @@
 {
   "productName": "Pamidor",
-  "name": "electron-quick-start",
+  "name": "pamidor",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A minimal pomodoro timer",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "mac-build": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "win-build": "electron-packager . pamidor --overwrite --asar=true --platform=win32 --arch=x64 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
@@ -15,10 +17,11 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "David Quiñones",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^6.0.3",
-    "electron-packager": "^14.0.4"
+    "electron-packager": "^14.0.4",
+    "electron-winstaller": "^4.0.0"
   }
 }
