@@ -47,7 +47,7 @@ function createWindow() {
     return false;
   });
 
-  appIcon = new Tray(path.join(__dirname, 'assets/images/tray.png'));
+  app.tray = new Tray(path.join(__dirname, 'assets/images/tray.png'));
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Show App',
@@ -68,7 +68,7 @@ function createWindow() {
   contextMenu.items[1].checked = false;
 
   // Call this again for Linux because we modified the context menu
-  appIcon.setContextMenu(contextMenu);
+  app.tray.setContextMenu(contextMenu);
 }
 
 // This method will be called when Electron has finished
