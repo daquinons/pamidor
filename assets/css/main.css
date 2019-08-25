@@ -54,12 +54,12 @@ body {
   height: 45px;
 }
 
-.button.left {
+#button-left {
   visibility: hidden;
   margin-left: 50px;
 }
 
-.button.right {
+#button-right {
   margin-right: 50px;
 }
 
