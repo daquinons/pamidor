@@ -18,9 +18,10 @@ function createWindow () {
     maxHeight: 440,
     minHeight: 440,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true
     }
-  })
+  });
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
