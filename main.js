@@ -6,7 +6,7 @@ const path = require('path');
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 const windowWidth = 375;
-const windowHeight= 300;
+const windowHeight= 350;
 
 function createWindow() {
   // Create the browser window.

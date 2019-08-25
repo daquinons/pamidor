@@ -1,4 +1,4 @@
-const app = () => {
+const main = () => {
   // App State
   let workPeriod = true;
   let timerStarted = false;
@@ -113,4 +113,4 @@ function sendNotification(isWorkPeriod) {
   });
 }
 
-module.exports = app;
+module.exports = main;
