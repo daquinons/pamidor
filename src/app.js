@@ -8,7 +8,6 @@ const app = () => {
   let timerElement = document.getElementById('timer');
   let timerDuration = setTimerDuration();
 
-
   const leftButton = document.getElementById('button-left');
   const rightButton = document.getElementById('button-right');
   addEvents();
@@ -29,9 +28,7 @@ const app = () => {
 
     rightButton.addEventListener('click', e => {
       if (!timerStarted) {
-        intervalObject = startTimer(
-          workPeriod
-        );
+        intervalObject = startTimer(workPeriod);
         timerStarted = true;
       } else if (timerStarted && !timerPaused) {
         timerPaused = true;
@@ -43,6 +40,7 @@ const app = () => {
   }
 
   function startTimer(isWorkPeriod) {
+    sendNotification(isWorkPeriod);
     let timer = timerDuration - 1;
     let interval = setInterval(function() {
       if (!timerPaused) {
@@ -99,6 +97,20 @@ function setGreenElementHeight(duration, timer, isInverse) {
   const greenElement = document.getElementById('green');
   const percentage = (timer / duration) * 100;
   greenElement.style.height = `${isInverse ? 100 - percentage : percentage}%`;
+}
+
+function sendNotification(isWorkPeriod) {
+  const title = isWorkPeriod ? 'Time to work' : 'Time to rest';
+  const body = isWorkPeriod
+    ? 'Focus during the next minutes until the end of the timer'
+    : 'Take a breath before continuing to work';
+  const icon = isWorkPeriod
+    ? './assets/images/red_circle.png'
+    : './assets/images/green_circle.png';
+  new Notification(title, {
+    body: body,
+    icon: icon
+  });
 }
 
 module.exports = app;

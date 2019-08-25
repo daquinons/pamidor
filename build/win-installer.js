@@ -3,7 +3,7 @@ const electronInstaller = require('electron-winstaller');
 const start = async () => {
   try {
     await electronInstaller.createWindowsInstaller({
-      appDirectory: './release-builds/pamidor-win32-x64',
+      appDirectory: './release-builds/pamidor-win32-ia32',
       outputDirectory: './release-builds/installer-win',
       authors: 'David Quiñones',
       exe: 'pamidor.exe'
