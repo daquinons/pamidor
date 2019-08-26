@@ -6,8 +6,8 @@ const path = require('path');
 function getCompletedPomodorosMessage(completed) {
   const pomodoros = Math.floor(completed / 2);
   return pomodoros === 1
-    ? `${pomodoros} completed pomodoro`
-    : `${pomodoros} completed pomodoros`;
+    ? `${pomodoros} Completed Pomodoro`
+    : `${pomodoros} Completed Pomodoros`;
 }
 
 function setMenuCompletedPomodoros(completedTimer) {
