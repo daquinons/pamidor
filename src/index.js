@@ -26,6 +26,7 @@ const main = () => {
         timerPaused = false;
         timerDuration = setTimerDuration();
         setGreenElementHeight(timerDuration, timerDuration, workPeriod);
+        updateTray(workPeriod, getTimerTextForTime(timerDuration));
       }
 
       updateUI();
