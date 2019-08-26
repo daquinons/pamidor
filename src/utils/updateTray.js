@@ -26,7 +26,7 @@ function setMenuCompletedPomodoros(completedTimer) {
     {
       label: 'Quit',
       click: function() {
-        app.isQuiting = true;
+        app.isQuitting = true;
         app.quit();
       }
     }
@@ -35,7 +35,6 @@ function setMenuCompletedPomodoros(completedTimer) {
 }
 
 function updateTray(isWorkPeriod, textTimer) {
-  //setMenu(getCompletedPomodorosMessage(completedTimer));
   const imagePath = isWorkPeriod
     ? path.join(__dirname, '..', '..', 'assets/images/tray_red.png')
     : path.join(__dirname, '..', '..', 'assets/images/tray_green.png');

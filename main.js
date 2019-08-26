@@ -1,12 +1,19 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu, Tray, autoUpdater } = require('electron');
+const {
+  app,
+  BrowserWindow,
+  Menu,
+  Tray,
+  autoUpdater,
+  dialog
+} = require('electron');
 const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 const windowWidth = 375;
-const windowHeight= 350;
+const windowHeight = 350;
 
 function createWindow() {
   // Create the browser window.
@@ -39,17 +46,13 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null; */
-    if (!app.isQuiting) {
+    if (!app.isQuitting) {
       event.preventDefault();
       mainWindow.hide();
     }
 
     return false;
   });
-
-  const { Menu } = require('electron');
-  const electron = require('electron');
-  const app = electron.app;
 
   const template = [
     {
@@ -87,7 +90,7 @@ function createWindow() {
     {
       label: 'View',
       submenu: [
-        /* {
+        /*          {
           label: 'Reload',
           accelerator: 'CmdOrCtrl+R',
           click(item, focusedWindow) {
@@ -102,9 +105,9 @@ function createWindow() {
             if (focusedWindow) focusedWindow.webContents.toggleDevTools();
           }
         },
-        {
+ */ {
           type: 'separator'
-        }, */
+        },
         {
           role: 'resetzoom'
         },
@@ -238,7 +241,7 @@ function createWindow() {
     {
       label: 'Quit',
       click: function() {
-        app.isQuiting = true;
+        app.isQuitting = true;
         app.quit();
       }
     }
@@ -277,15 +280,13 @@ app.on('activate', function() {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 const server = 'https://pamidor-hazel.dvd.now.sh';
-const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`;
 
-autoUpdater.setFeedURL(feed)
-
-setInterval(() => {
-  autoUpdater.checkForUpdates();
-}, 60000);
+autoUpdater.setFeedURL(feed);
+autoUpdater.checkForUpdates();
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+  console.log('Update downloaded');
   const dialogOpts = {
     type: 'info',
     buttons: ['Restart', 'Later'],
@@ -296,7 +297,10 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   };
 
   dialog.showMessageBox(dialogOpts, response => {
-    if (response === 0) autoUpdater.quitAndInstall();
+    if (response === 0) {
+      app.isQuitting = true;
+      autoUpdater.quitAndInstall();
+    }
   });
 });
 
