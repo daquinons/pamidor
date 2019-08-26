@@ -18,9 +18,9 @@
     "demo"
   ],
   "author": "David Quiñones",
-  "license": "CC0-1.0",
+  "license": "Copyright",
   "build": {
-    "appId": "enupal-electronv1",
+    "appId": "pamidor",
     "asar": true,
     "linux": {
       "target": [
