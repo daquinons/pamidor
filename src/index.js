@@ -1,6 +1,4 @@
-const app = require('electron').remote.app;
-const nativeImage = require('electron').remote.nativeImage;
-const path = require('path');
+const { updateTray, setMenuCompletedPomodoros } = require('./utils/updateTray');
 
 const main = () => {
   // App State
@@ -25,8 +23,13 @@ const main = () => {
         timerStarted = false;
         timerPaused = false;
         timerDuration = setTimerDuration();
+        completedTimer = 0;
         setGreenElementHeight(timerDuration, timerDuration, workPeriod);
-        updateTray(workPeriod, getTimerTextForTime(timerDuration));
+        updateTray(
+          workPeriod,
+          getTimerTextForTime(timerDuration)
+        );
+        setMenuCompletedPomodoros(completedTimer);
       }
 
       updateUI();
@@ -47,13 +50,14 @@ const main = () => {
 
   function startTimer(isWorkPeriod) {
     sendNotification(isWorkPeriod);
+    setMenuCompletedPomodoros(completedTimer);
     let timer = timerDuration - 1;
     let interval = setInterval(function() {
       if (!timerPaused) {
         setGreenElementHeight(timerDuration, timer, workPeriod);
         const timerText = getTimerTextForTime(timer);
         timerElement.textContent = timerText;
-        updateTray(isWorkPeriod, timerText);
+        updateTray(workPeriod, timerText);
 
         --timer;
 
@@ -93,44 +97,36 @@ const main = () => {
     timerElement.textContent = getTimerTextForTime(duration);
     return duration;
   }
+
+  function getTimerTextForTime(time) {
+    minutes = parseInt(time / 60, 10);
+    seconds = parseInt(time % 60, 10);
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    return minutes + ':' + seconds;
+  }
+
+  function setGreenElementHeight(duration, timer, isInverse) {
+    const greenElement = document.getElementById('green');
+    const percentage = (timer / duration) * 100;
+    greenElement.style.height = `${isInverse ? 100 - percentage : percentage}%`;
+  }
+
+  function sendNotification(isWorkPeriod) {
+    const title = isWorkPeriod ? 'Time to work' : 'Time to rest';
+    const body = isWorkPeriod
+      ? 'Focus during the next minutes until the end of the timer'
+      : 'Take a breath before continuing to work';
+    const icon = isWorkPeriod
+      ? './assets/images/red_circle.png'
+      : './assets/images/green_circle.png';
+    new Notification(title, {
+      body: body,
+      icon: icon
+    });
+  }
 };
-
-function getTimerTextForTime(time) {
-  minutes = parseInt(time / 60, 10);
-  seconds = parseInt(time % 60, 10);
-
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  seconds = seconds < 10 ? '0' + seconds : seconds;
-
-  return minutes + ':' + seconds;
-}
-
-function setGreenElementHeight(duration, timer, isInverse) {
-  const greenElement = document.getElementById('green');
-  const percentage = (timer / duration) * 100;
-  greenElement.style.height = `${isInverse ? 100 - percentage : percentage}%`;
-}
-
-function sendNotification(isWorkPeriod) {
-  const title = isWorkPeriod ? 'Time to work' : 'Time to rest';
-  const body = isWorkPeriod
-    ? 'Focus during the next minutes until the end of the timer'
-    : 'Take a breath before continuing to work';
-  const icon = isWorkPeriod
-    ? './assets/images/red_circle.png'
-    : './assets/images/green_circle.png';
-  new Notification(title, {
-    body: body,
-    icon: icon
-  });
-}
-
-function updateTray(isWorkPeriod, text) {
-  const imagePath = isWorkPeriod
-    ? path.join(__dirname, '..', 'assets/images/tray_red.png')
-    : path.join(__dirname, '..', 'assets/images/tray_green.png');
-  app.tray.setImage(nativeImage.createFromPath(imagePath));
-  app.tray.setToolTip(text);
-}
 
 module.exports = main;
