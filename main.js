@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, Menu, Tray } = require('electron');
+const { app, BrowserWindow, Menu, Tray, autoUpdater } = require('electron');
 const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -276,3 +276,7 @@ app.on('activate', function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+const server = 'https://pamidor-hazel.dvd.now.sh';
+const feed = `${server}/update/${process.platform}/${app.getVersion()}`
+
+autoUpdater.setFeedURL(feed)
