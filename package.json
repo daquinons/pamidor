@@ -6,6 +6,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "win-linux-build": "npx electron-builder -wl",
     "mac-build": "electron-packager . --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --app-bundle-id=com.pamidor.dvdqapps --prune=true --out=release-builds && electron-osx-sign ./release-builds/Pamidor-darwin-x64/Pamidor.app --platform=darwin --no-gatekeeper-assess --identity='Mac Developer: David Quiñones Lechón (M9DJX7J7UA)' && electron-installer-dmg ./release-builds/Pamidor-darwin-x64/Pamidor.app Pamidor --overwrite --icon=./assets/icons/mac/icon.icns --background=./assets/images/dmg-bg.png && mv Pamidor.dmg ./release-builds/Pamidor-darwin-x64/"
   },
   "repository": "https://github.com/electron/electron-quick-start",
@@ -18,8 +19,24 @@
   ],
   "author": "David Quiñones",
   "license": "CC0-1.0",
+  "build": {
+    "appId": "enupal-electronv1",
+    "asar": true,
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "assets/icons/win/icon.ico"
+    }
+  },
   "devDependencies": {
     "electron": "^6.0.3",
+    "electron-builder": "^21.2.0",
+    "electron-builder-squirrel-windows": "^21.2.0",
     "electron-installer-dmg": "^3.0.0",
     "electron-osx-sign": "^0.4.12",
     "electron-packager": "^14.0.4"

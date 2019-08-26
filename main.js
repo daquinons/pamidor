@@ -46,9 +46,13 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null; */
-    if (!app.isQuitting) {
-      event.preventDefault();
-      mainWindow.hide();
+    if (process.platform !== 'darwin') {
+      app.quit();
+    } else {
+      if (!app.isQuitting) {
+        event.preventDefault();
+        mainWindow.hide();
+      }
     }
 
     return false;
@@ -138,14 +142,6 @@ function createWindow() {
     },
     {
       role: 'help',
-      submenu: [
-        {
-          label: 'Learn More',
-          click() {
-            require('electron').shell.openExternal('http://electron.atom.io');
-          }
-        }
-      ]
     }
   ];
 
