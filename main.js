@@ -11,13 +11,13 @@ const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+app.mainWindow;
 const windowWidth = 375;
 const windowHeight = 350;
 
 function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({
+  app.mainWindow = new BrowserWindow({
     icon: path.join(__dirname, 'assets/icons/png/64x64.png'),
     alwaysOnTop: true,
     backgroundColor: '#EB5757',
@@ -35,23 +35,23 @@ function createWindow() {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html');
+  app.mainWindow.loadFile('index.html');
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // app.mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
-  mainWindow.on('close', function(event) {
+  app.mainWindow.on('close', function(event) {
     /* // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    mainWindow = null; */
+    app.mainWindow = null; */
     if (process.platform !== 'darwin') {
       app.quit();
     } else {
       if (!app.isQuitting) {
         event.preventDefault();
-        mainWindow.hide();
+        app.mainWindow.hide();
       }
     }
 
@@ -231,7 +231,7 @@ function createWindow() {
     {
       label: 'Show App',
       click: function() {
-        mainWindow.show();
+        app.mainWindow.show();
       }
     },
     {
@@ -263,14 +263,14 @@ app.on('window-all-closed', function() {
 });
 
 app.on('before-quit', function() {
-  mainWindow.destroy();
+  app.mainWindow.destroy();
 });
 
 app.on('activate', function() {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) createWindow();
-  else mainWindow.show();
+  if (app.mainWindow === null) createWindow();
+  else app.mainWindow.show();
 });
 
 // In this file you can include the rest of your app's specific main process

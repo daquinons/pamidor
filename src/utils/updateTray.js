@@ -15,12 +15,8 @@ function setMenuCompletedPomodoros(completedTimer) {
   const contextMenu = Menu.buildFromTemplate([
     {
       label: completedText,
-      click: function() {}
-    },
-    {
-      label: 'Show App',
       click: function() {
-        mainWindow.show();
+        app.mainWindow.show();
       }
     },
     {
