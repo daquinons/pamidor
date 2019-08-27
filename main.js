@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const {
   app,
+  powerSaveBlocker,
   BrowserWindow,
   Menu,
   Tray,
@@ -14,6 +15,8 @@ const path = require('path');
 app.mainWindow;
 const windowWidth = 375;
 const windowHeight = 350;
+
+app.powerSaverId = powerSaveBlocker.start('prevent-app-suspension');
 
 function createWindow() {
   // Create the browser window.
