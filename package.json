@@ -7,7 +7,8 @@
   "scripts": {
     "start": "electron .",
     "linux-win-build": "npx electron-builder -lw",
-    "mac-build": "electron-packager . --ignore=dist --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --app-bundle-id=com.pamidor.dvdqapps --prune=true --out=release-builds && electron-osx-sign ./release-builds/Pamidor-darwin-x64/Pamidor.app --platform=darwin --no-gatekeeper-assess --identity='Mac Developer: David Quiñones Lechón (M9DJX7J7UA)' && electron-installer-dmg ./release-builds/Pamidor-darwin-x64/Pamidor.app Pamidor --overwrite --icon=./assets/icons/mac/icon.icns --background=./assets/images/dmg-bg.png && mv Pamidor.dmg ./release-builds/Pamidor-darwin-x64/"
+    "mac-build": "electron-packager . --ignore=dist --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --app-bundle-id=com.pamidor.dvdqapps --prune=true --out=release-builds && electron-osx-sign ./release-builds/Pamidor-darwin-x64/Pamidor.app --platform=darwin --no-gatekeeper-assess --identity='Mac Developer: David Quiñones Lechón (M9DJX7J7UA)'",
+    "mac-dmg": "electron-installer-dmg ./release-builds/Pamidor-darwin-x64/Pamidor.app Pamidor --overwrite --icon=./assets/icons/mac/icon.icns --background=./assets/images/dmg-bg.png && mv Pamidor.dmg ./release-builds/Pamidor-darwin-x64/"
   },
   "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
