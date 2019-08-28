@@ -124,7 +124,8 @@ const main = () => {
       : './assets/images/green_circle.png';
     new Notification(title, {
       body: body,
-      icon: icon
+      icon: icon,
+      silent: true
     });
   }
 };
