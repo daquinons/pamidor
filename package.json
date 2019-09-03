@@ -1,7 +1,7 @@
 {
   "productName": "Pamidor",
   "name": "pamidor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A minimal pomodoro timer",
   "main": "main.js",
   "scripts": {
