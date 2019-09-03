@@ -1,4 +1,6 @@
 const { updateTray, setMenuCompletedPomodoros } = require('./utils/updateTray');
+const path = require('path');
+const audioFile = path.join(__dirname, '..', '/assets/audio/audio.mp3');
 
 const main = () => {
   // App State
@@ -90,7 +92,7 @@ const main = () => {
   }
 
   function setTimerDuration() {
-    let duration = workPeriod ? 1500 : 300;
+    let duration = workPeriod ? 10 : 5; /* 1500 : 300 */
     if (!workPeriod && completedTimer % 7 === 0) {
       duration *= 3;
     }
@@ -115,6 +117,8 @@ const main = () => {
   }
 
   function sendNotification(isWorkPeriod) {
+    const audio = new Audio(audioFile);
+    audio.play();
     const title = isWorkPeriod ? 'Time to work' : 'Time to rest';
     const body = isWorkPeriod
       ? 'Focus during the next minutes until the end of the timer'

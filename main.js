@@ -16,8 +16,6 @@ app.mainWindow;
 const windowWidth = 375;
 const windowHeight = 350;
 
-app.powerSaverId = powerSaveBlocker.start('prevent-app-suspension');
-
 function createWindow() {
   // Create the browser window.
   app.mainWindow = new BrowserWindow({
@@ -97,7 +95,7 @@ function createWindow() {
     {
       label: 'View',
       submenu: [
-        /*          {
+        /* {
           label: 'Reload',
           accelerator: 'CmdOrCtrl+R',
           click(item, focusedWindow) {
@@ -112,9 +110,9 @@ function createWindow() {
             if (focusedWindow) focusedWindow.webContents.toggleDevTools();
           }
         },
- */ {
+        {
           type: 'separator'
-        },
+        }, */
         {
           role: 'resetzoom'
         },
@@ -144,7 +142,7 @@ function createWindow() {
       ]
     },
     {
-      role: 'help',
+      role: 'help'
     }
   ];
 
