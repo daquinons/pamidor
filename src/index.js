@@ -92,7 +92,7 @@ const main = () => {
   }
 
   function setTimerDuration() {
-    let duration = workPeriod ? 10 : 5; /* 1500 : 300 */
+    let duration = workPeriod ? 1500 : 300;
     if (!workPeriod && completedTimer % 7 === 0) {
       duration *= 3;
     }
