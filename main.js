@@ -16,6 +16,8 @@ app.mainWindow;
 const windowWidth = 375;
 const windowHeight = 350;
 
+app.powerSaveBlockerId = powerSaveBlocker.start('prevent-app-suspension');
+
 function createWindow() {
   // Create the browser window.
   app.mainWindow = new BrowserWindow({
