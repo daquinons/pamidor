@@ -25,6 +25,7 @@ function createWindow() {
     alwaysOnTop: true,
     backgroundColor: '#EB5757',
     titleBarStyle: 'hidden',
+    autoHideMenuBar: true,
     width: windowWidth,
     maxWidth: windowWidth,
     minWidth: windowWidth,
