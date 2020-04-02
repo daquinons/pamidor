@@ -34,7 +34,8 @@ function createWindow() {
     minHeight: windowHeight,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true
+      nodeIntegration: true,
+      sandbox: false
     }
   });
 
@@ -253,8 +254,6 @@ function createWindow() {
   // Call this again for Linux because we modified the context menu
   app.tray.setContextMenu(contextMenu);
 }
-
-app.commandLine.appendSwitch('--no-sandbox');
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
