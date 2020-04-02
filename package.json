@@ -1,11 +1,11 @@
 {
   "productName": "Pamidor",
   "name": "pamidor",
-  "version": "1.0.7",
+  "version": "1.0.7.1",
   "description": "A minimal pomodoro timer",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron --no-sandbox .",
     "sign-dev-electron-app": "codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.app",
     "win-build": "npx electron-builder -w",
     "linux-build": "npx electron-builder -l",
