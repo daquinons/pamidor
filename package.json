@@ -7,7 +7,6 @@
   "scripts": {
     "start": "electron .",
     "sign-dev-electron-app": "codesign --deep --force --verbose --sign - node_modules/electron/dist/Electron.app",
-    "postinstall": "npm run sign-dev-electron-app",
     "win-build": "npx electron-builder -w",
     "linux-build": "npx electron-builder -l",
     "mac-build": "electron-packager . --ignore=dist --asar --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --app-bundle-id=com.pamidor.dvdqapps --prune=true --out=release-builds && electron-osx-sign ./release-builds/Pamidor-darwin-x64/Pamidor.app --platform=darwin --no-gatekeeper-assess --identity='Mac Developer: David Quiñones Lechón (M9DJX7J7UA)'",
