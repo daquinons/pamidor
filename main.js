@@ -34,8 +34,7 @@ function createWindow() {
     minHeight: windowHeight,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      nodeIntegration: true,
-      sandbox: false
+      nodeIntegration: true
     }
   });
 
